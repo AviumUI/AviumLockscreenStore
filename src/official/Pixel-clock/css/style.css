@@ -1,0 +1,239 @@
+/*
+ * Copyright (C) 2026 The AviumUI Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      `http://www.apache.org/licenses/LICENSE-2.0`
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+:root {
+    --text-color: #f4f4f4;
+    --bg-color: transparent;
+    --accent-red: #ea1b22;
+    --dot-font: 'DotGothic16', monospace, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 带有抽象点阵背景的干扰网格 */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+.lockscreen-root {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px 20px;
+}
+
+.dot-text {
+    font-family: var(--dot-font);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.network-info, .battery-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.signal-dots {
+    display: flex;
+    gap: 3px;
+}
+.signal-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--text-color);
+}
+.signal-dots .dot.active {
+    background: var(--text-color);
+}
+
+.battery-icon {
+    width: 24px;
+    height: 12px;
+    border: 1px solid var(--text-color);
+    border-radius: 2px;
+    padding: 1px;
+    position: relative;
+}
+.battery-icon::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 3px;
+    width: 2px;
+    height: 4px;
+    background: var(--text-color);
+}
+.level-fill {
+    height: 100%;
+    width: 80%;
+    background: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+/* Main Clock Zone */
+.clock-zone {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.time-block {
+    font-size: clamp(6rem, 25vw, 10rem);
+    line-height: 0.8;
+    color: var(--text-color);
+    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2);
+    display: flex;
+}
+
+.blink-colon {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.date-block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.divider {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent-red);
+}
+
+/* Notification Zone */
+.notification-zone {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 5vh;
+}
+
+.notif-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.red-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-red);
+}
+
+/* Bottom Tools */
+.bottom-tools {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.fingerprint-scan {
+    position: relative;
+    width: 50px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.fp-ring {
+    position: absolute;
+    border: 1.5px dotted rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 8s linear infinite reverse;
+}
+.r1 { width: 40px; height: 50px; animation-duration: 4s; }
+.r2 { width: 30px; height: 38px; animation-duration: 6s; animation-direction: normal; }
+.r3 { width: 20px; height: 26px; }
+
+.fp-core {
+    position: relative;
+    z-index: 2;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 15px var(--accent-red); }
+}

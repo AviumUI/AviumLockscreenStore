@@ -1,0 +1,57 @@
+<!--
+ * Copyright (C) 2026 The AviumUI Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pop-Brutalism Lockscreen</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="lockscreen-container">
+        <!-- 顶部状态栏 -->
+        <div class="status-bar">
+            <div class="battery-wrapper">
+                <div class="battery">
+                    <div class="battery-bar" id="battery-bar"></div>
+                </div>
+                <span class="battery-text" id="battery-level">--%</span>
+            </div>
+            <!-- 通知点：有通知时展示亮粉色呼吸灯效 -->
+            <div class="notification-dot" id="notification-dot"></div>
+        </div>
+
+        <!-- 居中前卫大时钟 -->
+        <div class="clock-wrapper">
+            <div class="time-block">
+                <div class="hours" id="hours">00</div>
+                <div class="minutes" id="minutes">00</div>
+            </div>
+            <div class="date-block">
+                <span class="month-day" id="date">01.01</span>
+                <span class="day-of-week" id="weekday">SUN</span>
+            </div>
+        </div>
+        
+        <!-- 底部解锁提示 -->
+        <div class="unlock-hint">
+            SWIPE TO UNLOCK
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

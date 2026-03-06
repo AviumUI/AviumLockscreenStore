@@ -1,0 +1,146 @@
+/*
+ * Copyright (C) 2026 The AviumUI Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      `http://www.apache.org/licenses/LICENSE-2.0`
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    overflow: hidden;
+    font-family: 'Arial Rounded MT Bold', 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #FFFFFF;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 6vh 0 8vh 0;
+}
+
+.logo {
+    width: 80vw;
+    max-width: 400px;
+    margin-bottom: 2vh;
+    animation: bounceLogo 4s ease-in-out infinite;
+    filter: drop-shadow(0 10px 15px rgba(58, 126, 189, 0.4));
+}
+
+@keyframes bounceLogo {
+    0%, 100% { transform: translateY(0) rotate(-3deg) scale(1); }
+    50% { transform: translateY(-15px) rotate(3deg) scale(1.05); }
+}
+
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.time {
+    font-size: 28vw;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    -webkit-text-stroke: 2vw #387DCA;
+    text-shadow: 0 12px 25px rgba(56, 125, 202, 0.5);
+}
+
+.date-pill {
+    margin-top: 3vh;
+    padding: 1.5vh 6vw;
+    background: rgba(255, 255, 255, 0.95);
+    color: #387DCA;
+    font-size: 5vw;
+    font-weight: 800;
+    border-radius: 50px;
+    border: 1vw solid #387DCA;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.status-bar {
+    display: flex;
+    align-items: center;
+    gap: 4vw;
+}
+
+.battery-module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26vw;
+    height: 5.5vh;
+    background: rgba(255, 255, 255, 0.4);
+    border: 0.8vw solid #FFFFFF;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.battery-level {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #62C8FF;
+    width: 100%;
+    transition: width 0.4s ease, background 0.4s ease;
+    z-index: 1;
+}
+
+.battery-val {
+    position: relative;
+    z-index: 2;
+    font-weight: 900;
+    font-size: 4vw;
+    color: #265B9E;
+    text-shadow: 0px 0px 6px #FFFFFF;
+}
+
+.notification-badge {
+    width: 6vw;
+    height: 6vw;
+    background: #FF85A2;
+    border-radius: 50%;
+    border: 0.8vw solid #FFFFFF;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.notification-badge.active {
+    opacity: 1;
+    transform: scale(1);
+    animation: pulseBadge 1.5s infinite;
+}
+
+@keyframes pulseBadge {
+    0% { box-shadow: 0 0 0 0 rgba(255, 133, 162, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 133, 162, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 133, 162, 0); }
+}

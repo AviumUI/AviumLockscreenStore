@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>time</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="lockscreen-container">
+        <div class="clock-section">
+            <div class="time-display">
+                <span id="hours">12</span>
+                <span class="colon">:</span>
+                <span id="minutes">00</span>
+            </div>
+            <div class="seconds-display">
+                <span id="seconds">00</span>
+            </div>
+            <div class="date-display">
+                <span id="weekday">星期一</span>
+                <span id="date">1月1日</span>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="battery-info">
+                <span id="battery-icon">🔋</span>
+                <span id="battery-level">--%</span>
+            </div>
+            <div class="notification-hint" id="notification-hint">
+                <span>📱</span>
+                <span>无通知</span>
+            </div>
+        </div>
+        
+        <div class="unlock-hint">
+            <span>上滑解锁</span>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

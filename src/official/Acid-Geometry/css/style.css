@@ -1,0 +1,137 @@
+/*
+ * Copyright (C) 2026 The AviumUI Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      `http://www.apache.org/licenses/LICENSE-2.0`
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    overflow: hidden;
+    font-family: 'Arial Black', Impact, -apple-system, sans-serif;
+}
+
+.acid-grid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8vh 6vw;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.date-stamp {
+    font-size: 3.5vw;
+    font-weight: 900;
+    color: #EBFF00;
+    background: #000000;
+    padding: 1.5vh 4vw;
+    border-radius: 50px;
+    letter-spacing: 0.3vw;
+    border: 0.6vw solid #EBFF00;
+    box-shadow: 1.5vw 1.5vw 0 #4B00FF;
+}
+
+.noti-rhombus {
+    width: 6vw;
+    height: 6vw;
+    background: #FF003C;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 0.6vw solid #FFFFFF;
+}
+
+.noti-rhombus.active {
+    transform: rotate(225deg) scale(1.2);
+    box-shadow: 0 0 5vw #FF003C;
+}
+
+.time-hero {
+    position: relative;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: skewY(-6deg);
+}
+
+.hour-block {
+    position: absolute;
+    top: 2vh;
+    left: -4vw;
+    font-size: 58vw;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1.8vw #EBFF00;
+    line-height: 0.8;
+    z-index: 1;
+    text-shadow: -1.5vw -1.5vw 0 #4B00FF;
+}
+
+.minute-block {
+    position: absolute;
+    bottom: 2vh;
+    right: -2vw;
+    font-size: 48vw;
+    font-weight: 900;
+    color: #FF003C;
+    line-height: 0.8;
+    z-index: 2;
+    text-shadow: 2vw 2vw 0 #000000, 3vw 3vw 0 #FFFFFF;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    align-items: flex-end;
+}
+
+.battery-text {
+    font-size: 9vw;
+    font-weight: 900;
+    color: #FFFFFF;
+    -webkit-text-stroke: 0.4vw #000000;
+    text-shadow: 1vw 1vw 0 #4B00FF;
+    letter-spacing: -0.2vw;
+}
+
+.battery-line {
+    width: 100%;
+    height: 2.5vh;
+    background: rgba(0, 0, 0, 0.4);
+    border: 0.4vw solid #FFFFFF;
+    border-radius: 50px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+
+.battery-fill {
+    height: 100%;
+    width: 100%;
+    background: #EBFF00;
+    border-radius: 50px;
+    transition: width 0.5s ease, background 0.5s ease;
+}
