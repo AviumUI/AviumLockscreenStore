@@ -181,13 +181,17 @@ body {
 [main.js](clock-theme/js/main.js)
 ```javascript
 const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+let isAod = false;
 
 function updateTime() {
     const now = new Date();
     
     document.getElementById('hours').textContent = String(now.getHours()).padStart(2, '0');
     document.getElementById('minutes').textContent = String(now.getMinutes()).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(now.getSeconds()).padStart(2, '0');
+    
+    if (!isAod) {
+        document.getElementById('seconds').textContent = String(now.getSeconds()).padStart(2, '0');
+    }
     
     document.getElementById('weekday').textContent = weekdays[now.getDay()];
     document.getElementById('date').textContent = `${now.getMonth() + 1}月${now.getDate()}日`;
@@ -212,6 +216,13 @@ function onNotificationStateChanged(hasNotifications) {
     const hint = document.getElementById('notification-hint');
     hint.classList.toggle('has-notification', hasNotifications);
     hint.querySelector('span:last-child').textContent = hasNotifications ? '有新通知' : '无通知';
+}
+
+function onAodStateChanged(aod) {
+    isAod = aod;
+    if (!aod) {
+        updateTime();
+    }
 }
 
 function init() {
@@ -251,6 +262,9 @@ AviumLockscreen.log(message);
 
 // 获取系统语言
 const locale = AviumLockscreen.getSystemProperty("persist.sys.locale", "zh-CN");
+
+//Aod状态
+AviumLockscreen.isAod();
 ```
 
 ### 系统回调
@@ -265,6 +279,66 @@ function onTimeTick() {
 function onNotificationStateChanged(hasNotifications) {
     // hasNotifications: boolean
 }
+
+// AOD 状态变化时触发
+function onAodStateChanged(isAod) {
+    // isAod: boolean
+    // true: 进入 AOD 模式
+    // false: 离开 AOD 模式
+}
+```
+
+## AOD（Always On Display）支持
+
+### AOD 功能说明
+
+AOD（Always On Display）是熄屏显示功能，在设备锁屏但屏幕仍保持低功耗显示时使用。为了节省电量，在 AOD 模式下应该暂停不必要的动态效果和秒针更新。
+
+```javascript
+let isAod = false;
+
+function updateClock() {
+    const now = new Date();
+    
+    // 时和分始终更新
+    document.getElementById('hours').textContent = String(now.getHours()).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(now.getMinutes()).padStart(2, '0');
+    
+    // 秒针只在非 AOD 状态下更新
+    if (!isAod) {
+        document.getElementById('seconds').textContent = String(now.getSeconds()).padStart(2, '0');
+    }
+}
+
+// AOD 状态变化回调
+function onAodStateChanged(aod) {
+    isAod = aod;
+    
+    if (!aod) {
+        // 离开 AOD 时立即更新一次，确保显示最新时间
+        updateClock();
+    }
+}
+
+// 定时更新时钟
+setInterval(updateClock, 1000);
+```
+
+### AOD 注意事项
+
+| 项目 | 说明 |
+|------|------|
+| 时和分 | 在 AOD 状态下继续正常更新 |
+| 秒针 | 在 AOD 状态下暂停更新 |
+| 动态效果 | 在 AOD 状态下暂停动画和动态效果 |
+| 日期显示 | 在 AOD 状态下可以继续显示 |
+| 电池信息 | 在 AOD 状态下可以继续显示 |
+
+### 获取当前 AOD 状态
+
+```javascript
+// 获取当前是否处于 AOD 状态
+const currentAodState = AviumLockscreen.isAod();
 ```
 
 ## 重要规范

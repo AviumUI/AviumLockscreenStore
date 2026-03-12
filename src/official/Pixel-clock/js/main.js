@@ -34,12 +34,10 @@ function setNotificationHint(hasNotifications) {
 function updateNothingClock() {
     const now = new Date();
     
-    // 更新主时钟时间
     document.getElementById('hours').innerText = zeroPad(now.getHours());
     document.getElementById('minutes').innerText = zeroPad(now.getMinutes());
     
-    // 星期、月份、日期显示
-    const w = now.toString().split(' ')[0]; // MON, TUE ...
+    const w = now.toString().split(' ')[0];
     const m = zeroPad(now.getMonth() + 1);
     const d = zeroPad(now.getDate());
     

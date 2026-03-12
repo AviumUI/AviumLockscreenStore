@@ -19,5 +19,6 @@ function update() {
     document.getElementById('m').textContent = date.getMinutes().toString().padStart(2, '0');
     document.getElementById('d').textContent = date.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit' });
 }
+
 setInterval(update, 1000);
 update();

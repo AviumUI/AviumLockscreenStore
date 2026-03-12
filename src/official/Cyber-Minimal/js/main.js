@@ -13,12 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+let isAod = false;
+
 function update() {
     const d = new Date();
     document.getElementById('hour').textContent = d.getHours().toString().padStart(2, '0');
     document.getElementById('minute').textContent = d.getMinutes().toString().padStart(2, '0');
-    document.getElementById('sec').textContent = d.getSeconds().toString().padStart(2, '0');
+    if (!isAod) {
+        document.getElementById('sec').textContent = d.getSeconds().toString().padStart(2, '0');
+    }
     document.getElementById('date').textContent = d.toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: '2-digit'}).replace(/\//g, '.');
 }
+
+function onAodStateChanged(aod) {
+    isAod = aod;
+    if (!aod) {
+        update();
+    }
+}
+
 setInterval(update, 1000);
 update();

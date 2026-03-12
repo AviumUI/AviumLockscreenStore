@@ -24,5 +24,6 @@ function tick() {
     document.getElementById('ampm').textContent = ampm;
     document.getElementById('d').textContent = date.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' });
 }
+
 setInterval(tick, 1000);
 tick();

@@ -21,5 +21,6 @@ function run() {
     el.setAttribute('data-time', t);
     document.getElementById('date').textContent = d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
 }
+
 setInterval(run, 1000);
 run();

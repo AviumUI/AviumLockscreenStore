@@ -182,13 +182,17 @@ body {
 ```javascript
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+let isAod = false;
 
 function updateTime() {
     const now = new Date();
     
     document.getElementById('hours').textContent = String(now.getHours()).padStart(2, '0');
     document.getElementById('minutes').textContent = String(now.getMinutes()).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(now.getSeconds()).padStart(2, '0');
+    
+    if (!isAod) {
+        document.getElementById('seconds').textContent = String(now.getSeconds()).padStart(2, '0');
+    }
     
     document.getElementById('weekday').textContent = weekdays[now.getDay()];
     document.getElementById('date').textContent = `${months[now.getMonth()]} ${now.getDate()}`;
@@ -213,6 +217,13 @@ function onNotificationStateChanged(hasNotifications) {
     const hint = document.getElementById('notification-hint');
     hint.classList.toggle('has-notification', hasNotifications);
     hint.querySelector('span:last-child').textContent = hasNotifications ? 'New notifications' : 'No notifications';
+}
+
+function onAodStateChanged(aod) {
+    isAod = aod;
+    if (!aod) {
+        updateTime();
+    }
 }
 
 function init() {
@@ -252,6 +263,9 @@ AviumLockscreen.log(message);
 
 // Get system locale
 const locale = AviumLockscreen.getSystemProperty("persist.sys.locale", "en-US");
+
+// Get Aod state
+AviumLockscreen.isAod();
 ```
 
 ### System Callbacks
@@ -266,6 +280,66 @@ function onTimeTick() {
 function onNotificationStateChanged(hasNotifications) {
     // hasNotifications: boolean
 }
+
+// Triggered when AOD state changes
+function onAodStateChanged(isAod) {
+    // isAod: boolean
+    // true: Enter AOD mode
+    // false: Leave AOD mode
+}
+```
+
+## AOD (Always On Display) Support
+
+### AOD Feature Description
+
+AOD (Always On Display) is the always-on display feature that shows content when the device is locked but the screen remains on in low-power mode. To save battery, unnecessary dynamic effects and second hand updates should be paused in AOD mode.
+
+```javascript
+let isAod = false;
+
+function updateClock() {
+    const now = new Date();
+    
+    // Hours and minutes always update
+    document.getElementById('hours').textContent = String(now.getHours()).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(now.getMinutes()).padStart(2, '0');
+    
+    // Seconds only update when not in AOD mode
+    if (!isAod) {
+        document.getElementById('seconds').textContent = String(now.getSeconds()).padStart(2, '0');
+    }
+}
+
+// AOD state change callback
+function onAodStateChanged(aod) {
+    isAod = aod;
+    
+    if (!aod) {
+        // Update immediately when leaving AOD to ensure latest time is displayed
+        updateClock();
+    }
+}
+
+// Update clock periodically
+setInterval(updateClock, 1000);
+```
+
+### AOD Guidelines
+
+| Item | Description |
+|------|-------------|
+| Hours & Minutes | Continue normal updates in AOD mode |
+| Seconds | Pause updates in AOD mode |
+| Dynamic Effects | Pause animations and dynamic effects in AOD mode |
+| Date Display | Can continue to display in AOD mode |
+| Battery Info | Can continue to display in AOD mode |
+
+### Get Current AOD State
+
+```javascript
+// Get current AOD state
+const currentAodState = AviumLockscreen.isAod();
 ```
 
 ## Important Guidelines
